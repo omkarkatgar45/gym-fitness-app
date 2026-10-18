@@ -1,0 +1,401 @@
+/* ================================
+   ADMIN DASHBOARD LAYOUT
+================================ */
+
+.admin-dashboard-layout {
+  display: grid;
+  grid-template-columns: 255px minmax(0, 1fr);
+  gap: 24px;
+  align-items: start;
+  max-width: 1500px;
+  margin: 25px auto;
+  padding: 0 20px 35px;
+}
+
+.admin-dashboard-sidebar {
+  position: sticky;
+  top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
+  padding: 18px 13px;
+  background: #111;
+  border: 1px solid #303030;
+  border-radius: 14px;
+}
+
+.admin-dashboard-sidebar h3 {
+  margin: 4px 10px 12px;
+  color: #e0ab32;
+  font-size: 12px;
+  letter-spacing: 3px;
+}
+
+.admin-menu-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  width: 100%;
+  padding: 14px 12px;
+  border: 1px solid transparent;
+  border-radius: 9px;
+  background: transparent;
+  color: #d2d2d2;
+  text-align: left;
+  font-size: 14px;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.admin-menu-btn:hover {
+  border-color: #574725;
+  background: #1b1b1b;
+  color: #e0ab32;
+}
+
+.admin-menu-btn.active {
+  background: #e0ab32;
+  color: #101010;
+  border-color: #e0ab32;
+  font-weight: 800;
+}
+
+.admin-menu-btn strong {
+  min-width: 26px;
+  padding: 4px 7px;
+  border-radius: 6px;
+  background: #292929;
+  color: #e0ab32;
+  text-align: center;
+  font-size: 12px;
+}
+
+.admin-menu-btn.active strong {
+  background: #171717;
+  color: #e0ab32;
+}
+
+.admin-dashboard-main {
+  min-width: 0;
+}
+
+.admin-dashboard-main .dashboard-header {
+  margin-top: 15px;
+}
+
+/* ================================
+   RECORD SEARCH AND FILTERS
+================================ */
+
+.admin-record-tools {
+  margin: 0 0 25px;
+  padding: 23px;
+  background: #111;
+  border: 1px solid #303030;
+  border-radius: 14px;
+  color: #fff;
+}
+
+.admin-record-tools h2 {
+  margin: 0 0 20px;
+  color: #fff;
+  font-size: 20px;
+}
+
+.admin-record-search label,
+.admin-record-filters label,
+.admin-record-pagination label {
+  display: block;
+  margin-bottom: 8px;
+  color: #ccc;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.admin-record-search input,
+.admin-record-filters select,
+.admin-record-pagination select {
+  width: 100%;
+  min-height: 44px;
+  padding: 11px 13px;
+  background: #080808;
+  border: 1px solid #444;
+  border-radius: 8px;
+  color: #fff;
+  font: inherit;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.admin-record-search input:focus,
+.admin-record-filters select:focus,
+.admin-record-pagination select:focus {
+  border-color: #e0ab32;
+  box-shadow: 0 0 0 2px #e0ab3225;
+}
+
+.admin-record-search input::placeholder {
+  color: #777;
+}
+
+.admin-record-filters {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 16px;
+  margin-top: 18px;
+}
+
+.admin-record-controls {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-top: 18px;
+}
+
+.admin-record-tools button,
+.admin-record-pagination button {
+  padding: 11px 15px;
+  background: #1b1b1b;
+  color: #e0ab32;
+  border: 1px solid #49402b;
+  border-radius: 8px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.admin-record-tools button:hover:not(:disabled),
+.admin-record-pagination button:hover:not(:disabled) {
+  background: #e0ab32;
+  color: #111;
+}
+
+.admin-record-tools button:disabled,
+.admin-record-pagination button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+/* ================================
+   PAYMENT HISTORY CARDS
+================================ */
+
+.payment-card {
+  padding: 22px;
+  margin-bottom: 18px;
+  background: #111;
+  color: #fff;
+  border: 1px solid #303030;
+  border-radius: 14px;
+  box-shadow: 0 5px 18px #00000020;
+  overflow-wrap: anywhere;
+}
+
+.payment-card h3 {
+  margin: 0 0 14px;
+  color: #e0ab32;
+  font-size: 18px;
+}
+
+.payment-card p {
+  margin: 9px 0;
+  color: #d4d4d4;
+  font-size: 14px;
+  line-height: 1.6;
+}
+
+.payment-card strong {
+  color: #fff;
+}
+
+.payment-card .receipt-number {
+  color: #e0ab32;
+  font-weight: 800;
+}
+
+/* ================================
+   RECEIPT BUTTONS
+================================ */
+
+.admin-dashboard-main .receipt-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 16px;
+}
+
+/* View Receipt */
+.admin-dashboard-main .receipt-actions .view-receipt-btn,
+.admin-dashboard-main .view-receipt-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  padding: 11px 17px;
+  background: #2563eb;
+  color: #fff;
+  border: 1px solid #2563eb;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.3px;
+  line-height: 1.2;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.admin-dashboard-main .receipt-actions .view-receipt-btn:hover,
+.admin-dashboard-main .view-receipt-btn:hover {
+  background: #1d4ed8;
+  border-color: #1d4ed8;
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+/* Print Receipt */
+.admin-dashboard-main .receipt-actions .print-receipt-btn,
+.admin-dashboard-main .print-receipt-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  padding: 11px 17px;
+  background: #16a34a;
+  color: #fff;
+  border: 1px solid #16a34a;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.3px;
+  line-height: 1.2;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.2s ease;
+}
+
+.admin-dashboard-main .receipt-actions .print-receipt-btn:hover,
+.admin-dashboard-main .print-receipt-btn:hover {
+  background: #15803d;
+  border-color: #15803d;
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+.admin-dashboard-main .view-receipt-btn:focus-visible,
+.admin-dashboard-main .print-receipt-btn:focus-visible {
+  outline: 3px solid #93c5fd;
+  outline-offset: 3px;
+}
+
+.admin-dashboard-main .view-receipt-btn:disabled,
+.admin-dashboard-main .print-receipt-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* ================================
+   PAYMENT APPROVAL BUTTON
+================================ */
+
+.admin-dashboard-main .approve-payment-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  padding: 11px 17px;
+  background: #e0ab32;
+  color: #111;
+  border: 1px solid #e0ab32;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.admin-dashboard-main .approve-payment-btn:hover {
+  background: #f2c14e;
+  border-color: #f2c14e;
+  transform: translateY(-1px);
+}
+
+/* ================================
+   PAGINATION
+================================ */
+
+.admin-record-pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin: 28px auto 10px;
+}
+
+.admin-record-pagination select {
+  width: 85px;
+}
+
+.admin-record-pagination span {
+  color: #e0ab32;
+  font-weight: 800;
+}
+
+/* ================================
+   MOBILE RESPONSIVE
+================================ */
+
+@media (max-width: 900px) {
+  .admin-dashboard-layout {
+    grid-template-columns: 1fr;
+    gap: 18px;
+    padding: 0 12px 25px;
+  }
+
+  .admin-dashboard-sidebar {
+    position: static;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+  }
+
+  .admin-dashboard-sidebar h3 {
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 600px) {
+  .admin-record-tools {
+    padding: 16px;
+  }
+
+  .admin-record-controls button {
+    flex: 1;
+  }
+
+  .admin-record-pagination {
+    gap: 8px;
+  }
+
+  .admin-record-pagination button {
+    padding: 10px;
+  }
+
+  .admin-dashboard-main .receipt-actions {
+    gap: 8px;
+  }
+
+  .admin-dashboard-main .receipt-actions button,
+  .admin-dashboard-main .view-receipt-btn,
+  .admin-dashboard-main .print-receipt-btn,
+  .admin-dashboard-main .approve-payment-btn {
+    min-height: 40px;
+    padding: 10px 12px;
+    font-size: 12px;
+  }
+}

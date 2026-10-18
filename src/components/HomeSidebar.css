@@ -1,0 +1,189 @@
+
+/* LEFT SIDEBAR */
+.navbar.home-sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+
+  width: 250px;
+  height: 100vh;
+  box-sizing: border-box;
+
+  padding: 28px 18px;
+
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  gap: 28px;
+
+  overflow-y: auto;
+
+  background: #080a0f;
+  border-right: 1px solid #292f38;
+  border-bottom: none;
+}
+
+/* LOGO */
+.navbar.home-sidebar .logo {
+  display: block;
+  width: 100%;
+  text-align: center;
+  font-size: 29px;
+  text-decoration: none;
+}
+
+/* MENU */
+.navbar.home-sidebar .nav-links {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 8px;
+
+  width: 100%;
+  flex: none;
+}
+
+.navbar.home-sidebar .nav-links a {
+  display: block;
+  box-sizing: border-box;
+  width: 100%;
+
+  padding: 14px;
+
+  border: 1px solid transparent;
+  border-radius: 9px;
+
+  color: #d0d4dc;
+  font-size: 13px;
+  font-weight: 800;
+  text-decoration: none;
+
+  transition: 0.2s ease;
+}
+
+/* ACTIVE MENU */
+.navbar.home-sidebar .nav-links a.active {
+  background: #e0ab32;
+  border-color: #e0ab32;
+  color: #111;
+}
+
+/* HOVER */
+.navbar.home-sidebar .nav-links a:hover {
+  background: #1b1e24;
+  border-color: #e0ab32;
+  color: #e0ab32;
+}
+
+/* LOGIN AND JOIN NOW */
+.navbar.home-sidebar .member-nav-actions {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 10px;
+  width: 100%;
+}
+
+/* ADMIN AND TRAINER */
+.navbar.home-sidebar .admin-nav-action {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 10px;
+  width: 100%;
+
+  margin-top: auto;
+  padding-top: 20px;
+  border-top: 1px solid #292f38;
+}
+
+/* BUTTONS */
+.navbar.home-sidebar .nav-btn,
+.navbar.home-sidebar .admin-login-btn,
+.navbar.home-sidebar .trainer-login-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  box-sizing: border-box;
+  width: 100%;
+  min-height: 43px;
+}
+
+/* CONTENT TO THE RIGHT OF SIDEBAR */
+body.home-sidebar-active #root {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  box-sizing: border-box;
+  padding-left: 250px !important;
+}
+
+/* TABLET */
+@media (max-width: 900px) and (min-width: 601px) {
+  .navbar.home-sidebar {
+    width: 210px;
+    padding: 22px 12px;
+  }
+
+  body.home-sidebar-active #root {
+    padding-left: 210px !important;
+  }
+}
+
+/* MOBILE: MENU MOVES ABOVE CONTENT */
+@media (max-width: 600px) {
+  .navbar.home-sidebar {
+    position: relative;
+
+    width: 100%;
+    height: auto;
+    min-height: 0;
+
+    padding: 15px;
+    gap: 14px;
+
+    overflow: visible;
+
+    border-right: none;
+    border-bottom: 1px solid #292f38;
+  }
+
+  .navbar.home-sidebar .nav-links {
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .navbar.home-sidebar .nav-links a {
+    width: auto;
+    padding: 9px;
+    font-size: 11px;
+  }
+
+  .navbar.home-sidebar .member-nav-actions,
+  .navbar.home-sidebar .admin-nav-action {
+    flex-direction: row;
+    justify-content: center;
+    flex-wrap: wrap;
+
+    margin-top: 0;
+    padding-top: 0;
+    border-top: none;
+  }
+
+  .navbar.home-sidebar .nav-btn,
+  .navbar.home-sidebar .admin-login-btn,
+  .navbar.home-sidebar .trainer-login-btn {
+    width: auto;
+    flex: 1;
+    min-width: 90px;
+  }
+
+  body.home-sidebar-active #root {
+    padding-left: 0 !important;
+  }
+}

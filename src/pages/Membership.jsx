@@ -1,8 +1,15 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function Membership() {
+  const navigate = useNavigate();
+
+  const [loadingPlanId, setLoadingPlanId] = useState(null);
+  const [error, setError] = useState("");
+
   const plans = [
     {
+      id: 1,
       name: "Monthly",
       price: "₹999",
       duration: "/ month",
@@ -17,6 +24,7 @@ function Membership() {
       ],
     },
     {
+      id: 2,
       name: "Quarterly",
       price: "₹2,499",
       duration: "/ 3 months",
@@ -32,6 +40,7 @@ function Membership() {
       ],
     },
     {
+      id: 3,
       name: "Half-Yearly",
       price: "₹4,499",
       duration: "/ 6 months",
@@ -48,6 +57,7 @@ function Membership() {
       ],
     },
     {
+      id: 4,
       name: "Annual",
       price: "₹7,999",
       duration: "/ year",
@@ -65,6 +75,89 @@ function Membership() {
       ],
     },
   ];
+
+  const handleChoosePlan = async (plan) => {
+    setError("");
+
+    try {
+      const storedUser = localStorage.getItem("user");
+
+      // =========================
+      // USER NOT LOGGED IN
+      // =========================
+      if (!storedUser) {
+        navigate(
+          `/register?plan=${encodeURIComponent(plan.name)}`
+        );
+        return;
+      }
+
+      const user = JSON.parse(storedUser);
+
+      const memberId = user.member_id;
+
+      // =========================
+      // MEMBER ID NOT FOUND
+      // =========================
+      if (!memberId) {
+        navigate(
+          `/register?plan=${encodeURIComponent(plan.name)}`
+        );
+        return;
+      }
+
+      // =========================
+      // CREATE MEMBERSHIP REQUEST
+      // =========================
+      setLoadingPlanId(plan.id);
+
+      const token = localStorage.getItem("token");
+
+      const response = await fetch(
+        "http://localhost:5000/api/membership/request",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            ...(token
+              ? {
+                  Authorization: `Bearer ${token}`,
+                }
+              : {}),
+          },
+          body: JSON.stringify({
+            memberId: Number(memberId),
+            planId: plan.id,
+          }),
+        }
+      );
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(
+          data.message ||
+            "Failed to create membership request."
+        );
+      }
+
+      // =========================
+      // GO TO PAYMENT
+      // =========================
+      navigate(
+        `/payment?requestId=${data.requestId}`
+      );
+    } catch (err) {
+      console.error("Membership request error:", err);
+
+      setError(
+        err.message ||
+          "Something went wrong while selecting the membership plan."
+      );
+    } finally {
+      setLoadingPlanId(null);
+    }
+  };
 
   return (
     <div className="membership-page">
@@ -87,7 +180,8 @@ function Membership() {
 
           <p>
             Flexible membership plans designed for every fitness goal.
-            Choose your plan and continue to registration.
+            First complete registration and admin approval, then select
+            your membership plan.
           </p>
 
         </div>
@@ -116,6 +210,26 @@ function Membership() {
         </div>
 
 
+        {/* ================= ERROR ================= */}
+
+        {error && (
+          <div
+            style={{
+              maxWidth: "900px",
+              margin: "0 auto 30px",
+              padding: "14px 18px",
+              border: "1px solid #8f2d2d",
+              borderRadius: "10px",
+              background: "rgba(143, 45, 45, 0.12)",
+              color: "#ff8f8f",
+              textAlign: "center",
+            }}
+          >
+            {error}
+          </div>
+        )}
+
+
         <div className="plans-grid">
 
           {plans.map((plan) => (
@@ -126,7 +240,7 @@ function Membership() {
                   ? "plan-card popular-plan"
                   : "plan-card"
               }
-              key={plan.name}
+              key={plan.id}
             >
 
               {plan.popular && (
@@ -201,14 +315,16 @@ function Membership() {
 
               {/* CHOOSE PLAN */}
 
-              <Link
-                to={`/register?plan=${encodeURIComponent(
-                  plan.name
-                )}`}
+              <button
+                type="button"
                 className="plan-btn"
+                onClick={() => handleChoosePlan(plan)}
+                disabled={loadingPlanId !== null}
               >
-                Choose {plan.name} →
-              </Link>
+                {loadingPlanId === plan.id
+                  ? "Processing..."
+                  : `Choose ${plan.name} →`}
+              </button>
 
             </div>
 
@@ -245,15 +361,15 @@ function Membership() {
             </div>
 
             <div className="flow-icon">
-              📋
+              📝
             </div>
 
             <h3>
-              Choose Plan
+              Register
             </h3>
 
             <p>
-              Select Monthly, Quarterly, Half-Yearly or Annual membership.
+              Create your member account by entering your personal details.
             </p>
 
           </div>
@@ -271,15 +387,16 @@ function Membership() {
             </div>
 
             <div className="flow-icon">
-              📝
+              🔍
             </div>
 
             <h3>
-              Register
+              Admin Approval
             </h3>
 
             <p>
-              Enter your personal details and submit your membership request.
+              Admin reviews your registration and approves your member
+              account.
             </p>
 
           </div>
@@ -297,15 +414,15 @@ function Membership() {
             </div>
 
             <div className="flow-icon">
-              💰
+              🔐
             </div>
 
             <h3>
-              Payment
+              Login
             </h3>
 
             <p>
-              Complete the membership payment after registration.
+              After approval, log in to access your member dashboard.
             </p>
 
           </div>
@@ -323,15 +440,16 @@ function Membership() {
             </div>
 
             <div className="flow-icon">
-              ✅
+              💳
             </div>
 
             <h3>
-              Admin Approval
+              Choose Membership
             </h3>
 
             <p>
-              Admin verifies payment and approves the membership request.
+              Select your preferred membership plan from the available
+              options.
             </p>
 
           </div>
@@ -356,8 +474,8 @@ function Membership() {
           </h3>
 
           <p>
-            Your membership becomes active only after payment verification
-            and admin approval.
+            Registration must be approved by the admin before the member
+            can continue with the membership process.
           </p>
 
         </div>

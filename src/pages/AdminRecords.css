@@ -1,0 +1,283 @@
+
+.admin-records-page {
+  min-height: 100vh;
+  padding: 30px clamp(16px, 4vw, 55px) 55px;
+  background: #080808;
+  color: #f5f5f5;
+  box-sizing: border-box;
+}
+
+.admin-records-page * {
+  box-sizing: border-box;
+}
+
+.admin-records-page .records-topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 16px;
+  padding-bottom: 22px;
+  border-bottom: 1px solid #292929;
+}
+
+.admin-records-page .records-brand {
+  margin: 0;
+  color: #e0ab32;
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 3px;
+}
+
+.admin-records-page .records-topbar h2 {
+  margin: 8px 0 0;
+  color: #fff;
+  font-size: 22px;
+}
+
+.admin-records-page .records-header {
+  margin: 38px 0 28px;
+}
+
+.admin-records-page .records-header p {
+  color: #e0ab32;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 3px;
+}
+
+.admin-records-page .records-header h1 {
+  margin: 10px 0;
+  color: #fff;
+  font-size: clamp(28px, 4vw, 40px);
+}
+
+.admin-records-page .records-header span {
+  color: #aaa;
+  line-height: 1.7;
+}
+
+.admin-records-page button {
+  border: 1px solid #424242;
+  border-radius: 8px;
+  padding: 11px 17px;
+  background: #191919;
+  color: #eee;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: 0.2s ease;
+}
+
+.admin-records-page button:hover:not(:disabled) {
+  border-color: #e0ab32;
+  color: #e0ab32;
+}
+
+.admin-records-page button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.admin-records-page .records-tabs {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 22px;
+}
+
+.admin-records-page .records-tabs button.active {
+  background: #e0ab32;
+  color: #111;
+  border-color: #e0ab32;
+}
+
+.admin-records-page .records-panel {
+  padding: 23px;
+  background: #121212;
+  border: 1px solid #303030;
+  border-radius: 14px;
+  margin-bottom: 22px;
+}
+
+.admin-records-page .records-panel h2 {
+  margin: 0 0 20px;
+  color: #fff;
+  font-size: 20px;
+}
+
+.admin-records-page .records-field label {
+  display: block;
+  margin-bottom: 9px;
+  color: #d8d8d8;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.admin-records-page .records-field input,
+.admin-records-page .records-field select {
+  display: block;
+  width: 100%;
+  min-height: 45px;
+  padding: 12px 13px;
+  background: #080808;
+  border: 1px solid #414141;
+  border-radius: 8px;
+  color: #fff;
+  font: inherit;
+  outline: none;
+}
+
+.admin-records-page .records-field input:focus,
+.admin-records-page .records-field select:focus {
+  border-color: #e0ab32;
+  box-shadow: 0 0 0 2px #e0ab3225;
+}
+
+.admin-records-page .records-field input::placeholder {
+  color: #777;
+}
+
+.admin-records-page .records-filters {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 18px;
+  margin-top: 18px;
+}
+
+.admin-records-page .records-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.admin-records-page .records-primary {
+  background: #e0ab32;
+  color: #111;
+  border-color: #e0ab32;
+}
+
+.admin-records-page .records-primary:hover:not(:disabled) {
+  background: #f1bd46;
+  color: #111;
+}
+
+.admin-records-page .records-summary {
+  margin: 22px 0 15px;
+  color: #aaa;
+  font-size: 14px;
+}
+
+.admin-records-page .records-list {
+  display: grid;
+  gap: 15px;
+}
+
+.admin-records-page .records-card {
+  padding: 22px;
+  background: #141414;
+  border: 1px solid #303030;
+  border-left: 3px solid #e0ab32;
+  border-radius: 11px;
+  min-width: 0;
+}
+
+.admin-records-page .records-card h3 {
+  margin: 0 0 18px;
+  color: #e0ab32;
+  font-size: 20px;
+  overflow-wrap: anywhere;
+}
+
+.admin-records-page .records-info {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 18px;
+}
+
+.admin-records-page .records-info div {
+  min-width: 0;
+}
+
+.admin-records-page .records-info span {
+  display: block;
+  margin-bottom: 6px;
+  color: #999;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.7px;
+}
+
+.admin-records-page .records-info strong {
+  color: #f3f3f3;
+  font-size: 14px;
+  overflow-wrap: anywhere;
+}
+
+.admin-records-page .records-pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 25px;
+}
+
+.admin-records-page .records-pagination select {
+  padding: 10px;
+  color: #fff;
+  background: #151515;
+  border: 1px solid #444;
+  border-radius: 7px;
+}
+
+.admin-records-page .records-pagination span {
+  color: #e0ab32;
+  font-weight: 700;
+}
+
+.admin-records-page .records-empty {
+  text-align: center;
+  padding: 45px 18px;
+  background: #131313;
+  border: 1px dashed #444;
+  border-radius: 12px;
+}
+
+.admin-records-page .records-empty h2 {
+  color: #e0ab32;
+}
+
+.admin-records-page .records-empty p {
+  color: #999;
+}
+
+.admin-records-page .records-error {
+  padding: 14px 17px;
+  margin: 15px 0;
+  background: #241313;
+  border: 1px solid #743737;
+  border-radius: 8px;
+  color: #ff9999;
+}
+
+@media (max-width: 600px) {
+  .admin-records-page {
+    padding: 20px 13px 40px;
+  }
+
+  .admin-records-page .records-panel,
+  .admin-records-page .records-card {
+    padding: 16px;
+  }
+
+  .admin-records-page .records-filters {
+    grid-template-columns: 1fr;
+  }
+
+  .admin-records-page .records-info {
+    grid-template-columns: 1fr 1fr;
+    gap: 16px 10px;
+  }
+}

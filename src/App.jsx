@@ -1,162 +1,156 @@
-import { BrowserRouter, Routes, Route, Link } from "react-router-dom";
+
+import {
+  BrowserRouter,
+  Routes,
+  Route,
+  useLocation,
+} from "react-router-dom";
+
+import Navbar from "./components/Navbar";
+import DashboardLayout from "./components/DashboardLayout";
 
 import Home from "./pages/Home";
-import Login from "./pages/Login";
-import Membership from "./pages/Membership";
 import Registration from "./pages/Registration";
+import Login from "./pages/Login";
+import ForgotPassword from "./pages/ForgotPassword";
+import ResetPassword from "./pages/ResetPassword";
 
-function App() {
+import Membership from "./pages/Membership";
+import Payment from "./pages/Payment";
+import MemberDashboard from "./pages/MemberDashboard";
+
+import AdminLogin from "./pages/AdminLogin";
+import AdminDashboard from "./pages/AdminDashboard";
+import AdminReports from "./pages/AdminReports";
+import AdminRecords from "./pages/AdminRecords";
+
+import TrainerDashboard from "./pages/TrainerDashboard";
+import TrainerLogin from "./pages/TrainerLogin";
+
+import Programs from "./pages/Programs";
+import Trainers from "./pages/Trainers";
+import Contact from "./pages/Contact";
+import "./pages/Home.css";
+
+function AppContent() {
+  const location = useLocation();
+
+  const dashboardPaths = [
+    "/member-dashboard",
+    "/admin-dashboard",
+    "/admin-reports",
+    "/admin-records",
+    "/trainer-dashboard",
+  ];
+
+  const hideNavbarPaths = [
+    ...dashboardPaths,
+    "/forgot-password",
+    "/reset-password",
+  ];
+
+  const hideNavbar = hideNavbarPaths.some(
+    (path) =>
+      location.pathname === path ||
+      location.pathname.startsWith(`${path}/`)
+  );
+
   return (
-    <BrowserRouter>
-      <div className="app">
+    <div className="app">
+      {!hideNavbar && <Navbar />}
 
-        {/* ================= NAVBAR ================= */}
+      <Routes>
+        {/* Public Pages */}
+        <Route path="/" element={<Home />} />
+        <Route path="/register" element={<Registration />} />
+        <Route path="/login" element={<Login />} />
 
-        <nav className="navbar">
+        {/* Password Recovery */}
+        <Route
+          path="/forgot-password"
+          element={<ForgotPassword />}
+        />
+        <Route
+          path="/reset-password"
+          element={<ResetPassword />}
+        />
 
-          <Link
-            to="/"
-            className="logo"
-          >
-            GYM<span>FIT</span>
-          </Link>
+        {/* Membership */}
+        <Route path="/membership" element={<Membership />} />
+        <Route path="/payment" element={<Payment />} />
 
-          <div className="nav-links">
+        {/* General Pages */}
+        <Route path="/programs" element={<Programs />} />
+        <Route path="/trainers" element={<Trainers />} />
+        <Route path="/contact" element={<Contact />} />
 
-            <Link to="/">
-              Home
-            </Link>
+        {/* Member Dashboard */}
+        <Route
+          path="/member-dashboard"
+          element={
+            <DashboardLayout>
+              <MemberDashboard />
+            </DashboardLayout>
+          }
+        />
 
-            <Link to="/membership">
-              Membership
-            </Link>
+        {/* Admin Pages */}
+        <Route path="/admin-login" element={<AdminLogin />} />
+        <Route
+          path="/admin-dashboard"
+          element={
+            <DashboardLayout>
+              <AdminDashboard />
+            </DashboardLayout>
+          }
+        />
+        <Route
+          path="/admin-reports"
+          element={
+            <DashboardLayout>
+              <AdminReports />
+            </DashboardLayout>
+          }
+        />
+        <Route
+          path="/admin-records"
+          element={
+            <DashboardLayout>
+              <AdminRecords />
+            </DashboardLayout>
+          }
+        />
 
-            <Link to="/programs">
-              Programs
-            </Link>
+        {/* Trainer Pages */}
+        <Route path="/trainer-login" element={<TrainerLogin />} />
+        <Route
+          path="/trainer-dashboard"
+          element={
+            <DashboardLayout>
+              <TrainerDashboard />
+            </DashboardLayout>
+          }
+        />
 
-            <Link to="/trainers">
-              Trainers
-            </Link>
-
-            <Link to="/contact">
-              Contact
-            </Link>
-
-          </div>
-
-          {/* PUBLIC LOGIN */}
-
-          <Link
-            to="/login"
-            className="nav-btn"
-          >
-            Login
-          </Link>
-
-        </nav>
-
-
-        {/* ================= ROUTES ================= */}
-
-        <Routes>
-
-          {/* HOME */}
-
-          <Route
-            path="/"
-            element={<Home />}
-          />
-
-
-          {/* MEMBER LOGIN */}
-
-          <Route
-            path="/login"
-            element={<Login />}
-          />
-
-
-          {/* MEMBERSHIP PLANS */}
-
-          <Route
-            path="/membership"
-            element={<Membership />}
-          />
-
-
-          {/* MEMBER REGISTRATION */}
-
-          <Route
-            path="/register"
-            element={<Registration />}
-          />
-
-
-          {/* PROGRAMS */}
-
-          <Route
-            path="/programs"
-            element={
-              <div className="temporary-page">
-
-                <h1>
-                  Programs
-                </h1>
-
-                <p>
-                  Programs page will be created next.
-                </p>
-
-              </div>
-            }
-          />
-
-
-          {/* TRAINERS */}
-
-          <Route
-            path="/trainers"
-            element={
-              <div className="temporary-page">
-
-                <h1>
-                  Trainers
-                </h1>
-
-                <p>
-                  Trainers page will be created next.
-                </p>
-
-              </div>
-            }
-          />
-
-
-          {/* CONTACT */}
-
-          <Route
-            path="/contact"
-            element={
-              <div className="temporary-page">
-
-                <h1>
-                  Contact
-                </h1>
-
-                <p>
-                  Contact page will be created next.
-                </p>
-
-              </div>
-            }
-          />
-
-        </Routes>
-
-      </div>
-    </BrowserRouter>
+        {/* 404 Page */}
+        <Route
+          path="*"
+          element={
+            <div className="temporary-page">
+              <h1>404</h1>
+              <p>Page not found.</p>
+            </div>
+          }
+        />
+      </Routes>
+    </div>
   );
 }
 
-export default App;
+export default function App() {
+  return (
+    <BrowserRouter>
+      <AppContent />
+    </BrowserRouter>
+  );
+}

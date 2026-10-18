@@ -1,18 +1,20 @@
+
 import { useState } from "react";
 
 function Registration() {
-  const [selectedPlan, setSelectedPlan] = useState("Monthly");
-
   const [formData, setFormData] = useState({
-    name: "",
+    fullName: "",
     phone: "",
     email: "",
-    age: "",
+    password: "",
+    dateOfBirth: "",
     gender: "",
     address: "",
   });
 
   const [submitted, setSubmitted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
 
   const handleChange = (e) => {
     setFormData({
@@ -21,423 +23,303 @@ function Registration() {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
+    setErrorMessage("");
 
-    setSubmitted(true);
+    try {
+      const response = await fetch(
+        "http://localhost:5000/api/auth/register",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(formData),
+        }
+      );
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        setErrorMessage(data.message || "Registration failed.");
+        return;
+      }
+
+      setSubmitted(true);
+    } catch (error) {
+      console.error("Registration error:", error);
+      setErrorMessage(
+        "Unable to connect to the backend server."
+      );
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const plans = [
-    {
-      name: "Monthly",
-      price: "₹999",
-    },
-    {
-      name: "Quarterly",
-      price: "₹2,499",
-    },
-    {
-      name: "Half-Yearly",
-      price: "₹4,499",
-    },
-    {
-      name: "Annual",
-      price: "₹7,999",
-    },
-  ];
-
   return (
-    <div className="registration-page">
+    <div className="login-page registration-auth-page">
 
-      {/* ================= PAGE HEADER ================= */}
+      {/* LEFT SIDE - HEADING */}
+      <section className="login-left registration-auth-left">
+        <div className="login-left-content">
 
-      <section className="registration-header">
+          <p className="login-tag">JOIN GYMFIT</p>
 
-        <p className="registration-tag">
-          JOIN GYMFIT
-        </p>
+          <h1>
+            Start Your
+            <br />
+            <span>Fitness Journey</span>
+          </h1>
 
-        <h1>
-          Start Your
-          <br />
-          <span>Fitness Journey</span>
-        </h1>
+          <p>
+            Create your GYMFIT account and submit your
+            registration for admin approval.
+          </p>
 
-        <p>
-          Register with GYMFIT, choose your membership plan
-          and submit your membership request.
-        </p>
+          <div className="login-features">
 
-      </section>
-
-
-      {/* ================= REGISTRATION AREA ================= */}
-
-      <section className="registration-section">
-
-        {!submitted ? (
-
-          <div className="registration-layout">
-
-            {/* LEFT - PLANS */}
-
-            <div className="registration-plans">
-
-              <div className="registration-section-title">
-
+            <div className="login-feature">
+              <div className="login-feature-icon">💪</div>
+              <div>
+                <h3>Start Your Fitness Journey</h3>
                 <p>
-                  STEP 1
+                  Take the first step towards a healthier,
+                  stronger lifestyle.
                 </p>
-
-                <h2>
-                  Choose Your Plan
-                </h2>
-
-                <span>
-                  Select the membership that suits your goals.
-                </span>
-
               </div>
-
-
-              <div className="registration-plan-list">
-
-                {plans.map((plan) => (
-
-                  <button
-                    type="button"
-                    key={plan.name}
-                    className={
-                      selectedPlan === plan.name
-                        ? "registration-plan selected-plan"
-                        : "registration-plan"
-                    }
-                    onClick={() =>
-                      setSelectedPlan(plan.name)
-                    }
-                  >
-
-                    <div className="registration-plan-icon">
-                      💳
-                    </div>
-
-                    <div className="registration-plan-info">
-
-                      <h3>
-                        {plan.name}
-                      </h3>
-
-                      <p>
-                        Membership Plan
-                      </p>
-
-                    </div>
-
-                    <div className="registration-plan-price">
-                      {plan.price}
-                    </div>
-
-                    <div className="plan-radio">
-                      {selectedPlan === plan.name
-                        ? "✓"
-                        : ""}
-                    </div>
-
-                  </button>
-
-                ))}
-
-              </div>
-
             </div>
 
-
-            {/* RIGHT - FORM */}
-
-            <div className="registration-card">
-
-              <div className="registration-card-header">
-
+            <div className="login-feature">
+              <div className="login-feature-icon">✓</div>
+              <div>
+                <h3>Admin Approval</h3>
                 <p>
-                  STEP 2
+                  Your registration will be reviewed
+                  by the gym administrator.
                 </p>
-
-                <h2>
-                  Your Details
-                </h2>
-
-                <span>
-                  Enter your information to create your membership request.
-                </span>
-
               </div>
+            </div>
 
-
-              <form onSubmit={handleSubmit}>
-
-                <div className="registration-form-group">
-
-                  <label htmlFor="name">
-                    Full Name
-                  </label>
-
-                  <input
-                    id="name"
-                    name="name"
-                    type="text"
-                    placeholder="Enter your full name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    required
-                  />
-
-                </div>
-
-
-                <div className="registration-two-columns">
-
-                  <div className="registration-form-group">
-
-                    <label htmlFor="phone">
-                      Phone Number
-                    </label>
-
-                    <input
-                      id="phone"
-                      name="phone"
-                      type="tel"
-                      placeholder="10 digit number"
-                      pattern="[0-9]{10}"
-                      value={formData.phone}
-                      onChange={handleChange}
-                      required
-                    />
-
-                  </div>
-
-
-                  <div className="registration-form-group">
-
-                    <label htmlFor="age">
-                      Age
-                    </label>
-
-                    <input
-                      id="age"
-                      name="age"
-                      type="number"
-                      min="12"
-                      max="100"
-                      placeholder="Age"
-                      value={formData.age}
-                      onChange={handleChange}
-                      required
-                    />
-
-                  </div>
-
-                </div>
-
-
-                <div className="registration-form-group">
-
-                  <label htmlFor="email">
-                    Email Address
-                  </label>
-
-                  <input
-                    id="email"
-                    name="email"
-                    type="email"
-                    placeholder="Enter your email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                  />
-
-                </div>
-
-
-                <div className="registration-two-columns">
-
-                  <div className="registration-form-group">
-
-                    <label htmlFor="gender">
-                      Gender
-                    </label>
-
-                    <select
-                      id="gender"
-                      name="gender"
-                      value={formData.gender}
-                      onChange={handleChange}
-                      required
-                    >
-
-                      <option value="">
-                        Select Gender
-                      </option>
-
-                      <option value="Male">
-                        Male
-                      </option>
-
-                      <option value="Female">
-                        Female
-                      </option>
-
-                      <option value="Other">
-                        Other
-                      </option>
-
-                    </select>
-
-                  </div>
-
-
-                  <div className="registration-form-group">
-
-                    <label>
-                      Selected Plan
-                    </label>
-
-                    <input
-                      type="text"
-                      value={selectedPlan}
-                      readOnly
-                    />
-
-                  </div>
-
-                </div>
-
-
-                <div className="registration-form-group">
-
-                  <label htmlFor="address">
-                    Address
-                  </label>
-
-                  <textarea
-                    id="address"
-                    name="address"
-                    rows="4"
-                    placeholder="Enter your address"
-                    value={formData.address}
-                    onChange={handleChange}
-                    required
-                  />
-
-                </div>
-
-
-                <div className="registration-info-box">
-
-                  <span>
-                    ℹ️
-                  </span>
-
-                  <p>
-                    After submitting this form, your membership request
-                    will remain pending until the gym administrator
-                    verifies your payment and approves your membership.
-                  </p>
-
-                </div>
-
-
-                <button
-                  type="submit"
-                  className="registration-submit-btn"
-                >
-                  Continue to Payment →
-                </button>
-
-              </form>
-
+            <div className="login-feature">
+              <div className="login-feature-icon">🏆</div>
+              <div>
+                <h3>Achieve Your Goals</h3>
+                <p>
+                  Get ready to work towards your
+                  fitness goals with GYMFIT.
+                </p>
+              </div>
             </div>
 
           </div>
+        </div>
+      </section>
 
-        ) : (
+      {/* RIGHT SIDE - REGISTRATION FORM */}
+      <section className="registration-auth-right">
 
-          /* ================= SUCCESS ================= */
+        {!submitted ? (
+          <div className="registration-card">
 
-          <div className="registration-success">
-
-            <div className="registration-success-icon">
-              ✓
+            <div className="registration-card-header">
+              <p>REGISTRATION</p>
+              <h2>Create Your Account</h2>
+              <span>
+                Enter your details and submit your registration.
+                Your account will remain pending until an admin
+                approves it.
+              </span>
             </div>
 
+            <form onSubmit={handleSubmit}>
+
+              <div className="registration-form-group">
+                <label htmlFor="fullName">Full Name</label>
+                <input
+                  id="fullName"
+                  name="fullName"
+                  type="text"
+                  placeholder="Enter your full name"
+                  value={formData.fullName}
+                  onChange={handleChange}
+                  autoComplete="name"
+                  required
+                />
+              </div>
+
+              <div className="registration-two-columns">
+
+                <div className="registration-form-group">
+                  <label htmlFor="phone">Phone Number</label>
+                  <input
+                    id="phone"
+                    name="phone"
+                    type="tel"
+                    placeholder="10 digit number"
+                    pattern="[0-9]{10}"
+                    value={formData.phone}
+                    onChange={handleChange}
+                    autoComplete="tel"
+                    required
+                  />
+                </div>
+
+                <div className="registration-form-group">
+                  <label htmlFor="dateOfBirth">
+                    Date of Birth
+                  </label>
+                  <input
+                    id="dateOfBirth"
+                    name="dateOfBirth"
+                    type="date"
+                    value={formData.dateOfBirth}
+                    onChange={handleChange}
+                    required
+                  />
+                </div>
+
+              </div>
+
+              <div className="registration-form-group">
+                <label htmlFor="email">Email Address</label>
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  placeholder="Enter your email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  autoComplete="email"
+                  required
+                />
+              </div>
+
+              <div className="registration-form-group">
+                <label htmlFor="password">Password</label>
+                <input
+                  id="password"
+                  name="password"
+                  type="password"
+                  placeholder="Create a password"
+                  value={formData.password}
+                  onChange={handleChange}
+                  autoComplete="new-password"
+                  minLength={6}
+                  required
+                />
+              </div>
+
+              <div className="registration-form-group">
+                <label htmlFor="gender">Gender</label>
+                <select
+                  id="gender"
+                  name="gender"
+                  value={formData.gender}
+                  onChange={handleChange}
+                  required
+                >
+                  <option value="">Select Gender</option>
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                  <option value="Other">Other</option>
+                </select>
+              </div>
+
+              <div className="registration-form-group">
+                <label htmlFor="address">Address</label>
+                <textarea
+                  id="address"
+                  name="address"
+                  rows={3}
+                  placeholder="Enter your address"
+                  value={formData.address}
+                  onChange={handleChange}
+                  autoComplete="street-address"
+                  required
+                />
+              </div>
+
+              <div className="registration-info-box">
+                <span>ℹ️</span>
+                <p>
+                  After registration, your account will remain
+                  pending until the gym administrator reviews
+                  and approves your application.
+                </p>
+              </div>
+
+              {errorMessage && (
+                <div className="registration-error" role="alert">
+                  {errorMessage}
+                </div>
+              )}
+
+              <button
+                type="submit"
+                className="registration-submit-btn"
+                disabled={loading}
+              >
+                {loading
+                  ? "Submitting..."
+                  : "Submit Registration →"}
+              </button>
+
+            </form>
+          </div>
+        ) : (
+          <div className="registration-success">
+
+            <div className="registration-success-icon">✓</div>
+
             <p className="registration-tag">
-              REQUEST CREATED
+              REGISTRATION SUBMITTED
             </p>
 
-            <h2>
-              Registration Submitted
-            </h2>
+            <h2>Welcome to GYMFIT</h2>
 
             <p>
-              Your <strong>{selectedPlan}</strong> membership request
-              has been created successfully.
+              Your registration has been submitted successfully.
+              Your account is now waiting for admin approval.
             </p>
 
             <div className="request-summary">
 
               <div>
-                <span>
-                  Name
-                </span>
-
-                <strong>
-                  {formData.name}
-                </strong>
+                <span>Name</span>
+                <strong>{formData.fullName}</strong>
               </div>
 
               <div>
-                <span>
-                  Plan
-                </span>
-
-                <strong>
-                  {selectedPlan}
-                </strong>
+                <span>Email</span>
+                <strong>{formData.email}</strong>
               </div>
 
               <div>
-                <span>
-                  Phone
-                </span>
-
-                <strong>
-                  {formData.phone}
-                </strong>
+                <span>Phone</span>
+                <strong>{formData.phone}</strong>
               </div>
 
               <div>
-                <span>
-                  Status
-                </span>
-
+                <span>Status</span>
                 <strong className="pending-text">
-                  Pending Payment
+                  Pending Admin Approval
                 </strong>
               </div>
 
             </div>
 
             <p className="next-step-text">
-              Next step: complete your payment.
-              After payment verification, the admin can approve
-              your membership.
+              Next step: the gym administrator will review your
+              registration. After approval, you can log in and
+              choose your membership plan.
             </p>
 
           </div>
-
         )}
 
       </section>
-
     </div>
   );
 }
