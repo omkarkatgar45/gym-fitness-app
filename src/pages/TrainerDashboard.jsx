@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import LogoutButton from "../components/LogoutButton";
 
-const API = "http://localhost:5000";
+const API = "https://gym-fitness-app-pmsi.onrender.com";
 
 export default function TrainerDashboard() {
   const [user, setUser] = useState(null);

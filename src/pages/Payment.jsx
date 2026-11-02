@@ -27,7 +27,7 @@ function Payment() {
 
       try {
         const response = await fetch(
-          `http://localhost:5000/api/membership/request/${requestId}`
+          `https://gym-fitness-app-pmsi.onrender.com/api/membership/request/${requestId}`
         );
 
         const data = await response.json();
@@ -80,7 +80,7 @@ function Payment() {
       setPaying(true);
 
       const response = await fetch(
-        "http://localhost:5000/api/membership/payment",
+        "https://gym-fitness-app-pmsi.onrender.com/api/membership/payment",
         {
           method: "POST",
           headers: {

@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { apiFetch } from "../utils/api";
 import "./AdminRecords.css";
 
-const API = "http://localhost:5000";
+const API = "https://gym-fitness-app-pmsi.onrender.com";
 
 export default function AdminRecords() {
   const navigate = useNavigate();

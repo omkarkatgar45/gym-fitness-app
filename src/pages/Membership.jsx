@@ -114,7 +114,7 @@ function Membership() {
       const token = localStorage.getItem("token");
 
       const response = await fetch(
-        "http://localhost:5000/api/membership/request",
+        "https://gym-fitness-app-pmsi.onrender.com/api/membership/request",
         {
           method: "POST",
           headers: {

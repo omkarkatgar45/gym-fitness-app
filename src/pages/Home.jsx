@@ -2,7 +2,7 @@
 import "./Home.css";
 import { useEffect, useState } from "react";
 
-const API = "http://localhost:5000";
+const API = "https://gym-fitness-app-pmsi.onrender.com";
 
 const initialStats = {
   totalMembers: null,

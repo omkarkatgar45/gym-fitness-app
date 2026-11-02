@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { apiFetch } from "../utils/api";
 
-const API = "http://localhost:5000";
+const API = "https://gym-fitness-app-pmsi.onrender.com";
 
 const dateKey = (date) => String(date || "").slice(0, 10);
 
